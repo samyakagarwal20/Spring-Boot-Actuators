@@ -34,4 +34,48 @@ The configuration are done within the file **JDBCConfig.java**
 
 Before running the application, please locate the **USER.sql** file present in the root directory and execute the command either on your mysql client ar directly onto the MySQL workbench (the steps for accessing which are already present above)
 
+---
+### Overview of Actuators and HAL Explorer
 
+Actuators can be thought of as monitoring and management endpoints embedded within Spring Boot applications. These endpoints provide valuable insights into the operational health of an application, allowing developers and administrators to gain real-time information about various aspects such as health, metrics, environment, configuration, and more. 
+
+There are various actuator endpoints like 
+* /actuator/health
+* /actuator/metrics
+* /actuator/env
+* /actuator/configprops and so on
+
+To enable all the actuator endpoints, we can add the following property in application.yaml
+```
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+```
+
+In case of issue, the health status of the service might appear down. To gain additional info in this respect regarding the issue, we can add the following property in application.yaml
+```
+management:
+  endpoint:
+    health:
+      show-details: ALWAYS
+```
+
+providing a user-friendly interface to navigate and interact with a RESTful API. It enables developers to explore the API's resources, their relationships, and available endpoints through a web-based UI.
+
+To add the support for actuators in spring boot, we can add the following dependency
+```
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-actuator</artifactId>
+</dependency>
+```
+
+To add the support for HAL explorer, we can add the following dependency
+```
+<dependency>
+    <groupId>org.springframework.data</groupId>
+    <artifactId>spring-data-rest-hal-explorer</artifactId>
+</dependency>
+```
